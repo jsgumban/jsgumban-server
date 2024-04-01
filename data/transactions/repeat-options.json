@@ -1,0 +1,16 @@
+[
+	{ "id": "no_repeat", "name": "Nothing" },
+	{ "id": "daily", "name": "Every Day" },
+	{ "id": "weekdays", "name": "Weekdays" },
+	{ "id": "weekend", "name": "Weekend" },
+	{ "id": "weekly", "name": "Every Week" },
+	{ "id": "biweekly", "name": "Every 2 Weeks" },
+	{ "id": "four_weekly", "name": "Every 4 Weeks" },
+	{ "id": "monthly", "name": "Every Month" },
+	{ "id": "month_end", "name": "The end of the month" },
+	{ "id": "bimonthly", "name": "Every 2 Month" },
+	{ "id": "quarterly", "name": "Every 3 Month" },
+	{ "id": "four_months", "name": "Every 4 Month" },
+	{ "id": "semi_annually", "name": "Every 6 Month" },
+	{ "id": "annually", "name": "Annually" }
+]

@@ -1,0 +1,5 @@
+[
+  { "id": "expense", "name": "Expense" },
+  { "id": "income", "name": "Income" },
+  { "id": "transfer", "name": "Transfer" }
+]

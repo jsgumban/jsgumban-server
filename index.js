@@ -67,3 +67,7 @@ app.delete('/accounts/:id', async (req, res) => {
 		res.status(500).json({ message: err.message });
 	}
 });
+
+
+const billRoutes = require('./routes/bills');
+app.use('/bills', billRoutes);

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "PHP",
+    "name": "Philippine Peso"
+  },
+  {
+    "id": "USD",
+    "name": "United States Dollar"
+  },
+  {
+    "id": "EUR",
+    "name": "Euro"
+  }
+]
