@@ -79,9 +79,9 @@ const account = [
 	},
 	{
 		name: 'billGenerationDate',
-		type: 'Date',
+		type: 'String',
 		required: true,
-		reactType: 'date',
+		reactType: 'number',
 		placeholder: 'Bill Generation Date',
 		step: 2,
 		initialState: '', // Empty string or a specific date format
@@ -98,9 +98,9 @@ const account = [
 	},
 	{
 		name: 'billDueDate',
-		type: 'Date',
+		type: 'String',
 		required: true,
-		reactType: 'date',
+		reactType: 'number',
 		placeholder: 'Bill Due Date',
 		step: 2,
 		initialState: '', // Empty string or a specific date format

@@ -1,5 +1,14 @@
 [
   { "id": "expense", "name": "Expense" },
   { "id": "income", "name": "Income" },
-  { "id": "transfer", "name": "Transfer" }
+  { "id": "transfer", "name": "Transfer" },
+  { "id": "investment", "name": "Investment" },
+  { "id": "loan_payment", "name": "Loan Payment" },
+  { "id": "bill_payment", "name": "Bill Payment" },
+  { "id": "refund", "name": "Refund" },
+  { "id": "donation", "name": "Donation" },
+  { "id": "salary", "name": "Salary" },
+  { "id": "dividend", "name": "Dividend" },
+  { "id": "expense_reimbursement", "name": "Expense Reimbursement" },
+  { "id": "savings", "name": "Savings" }
 ]
