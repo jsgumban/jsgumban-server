@@ -26,5 +26,9 @@
   {
     "id": "unionbank",
     "name": "Union Bank of the Philippines (UnionBank)"
+  },
+  {
+    "id": "eastwest",
+    "name": "Eastwest Bank"
   }
 ]
