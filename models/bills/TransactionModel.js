@@ -1,40 +1,30 @@
 const mongoose = require('mongoose');
 const transactionConfig = require('../../config/bills/transaction');
 
-// Function to flatten the configuration
 const flattenConfig = (config) => {
 	let flattened = [];
-	
-	// Add common fields
 	flattened = flattened.concat(config.common);
-	
-	// Add type-specific fields
 	Object.values(config.types).forEach(typeFields => {
 		flattened = flattened.concat(typeFields);
 	});
-	
 	return flattened;
 };
 
-// Flatten the transactionsConfig
 const flattenedConfig = flattenConfig(transactionConfig);
 
-// Map configuration types to Mongoose schema types
 const typeMapping = {
 	String: String,
 	Number: Number,
 	Date: Date,
-	Boolean: Boolean // Add other type mappings if needed
+	Boolean: Boolean
 };
 
-// Create schema definition with conditional required fields
 const schemaDefinition = flattenedConfig.reduce((acc, field) => {
 	const fieldType = typeMapping[field.type];
 	if (fieldType) {
 		acc[field.name] = {
 			type: fieldType,
 			required: function() {
-				// Check if the field is in the common fields or required for the specific transaction type
 				if (transactionConfig.common.some(f => f.name === field.name)) {
 					return field.required || false;
 				}
@@ -47,9 +37,14 @@ const schemaDefinition = flattenedConfig.reduce((acc, field) => {
 		};
 	}
 	return acc;
-}, {});
+}, {
+	userId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'BillUser',
+		required: true
+	}
+});
 
-// Define the schema
 const transactionSchema = new mongoose.Schema(schemaDefinition);
 const BillTransaction = mongoose.model('BillTransaction', transactionSchema);
 

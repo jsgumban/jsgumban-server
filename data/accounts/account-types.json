@@ -7,29 +7,7 @@
   {
     "id": "loan",
     "name": "Loan",
-    "category": "credit",
-    "types": [
-      {
-        "id": "housing",
-        "name": "Housing Loan"
-      },
-      {
-        "id": "auto-loan",
-        "name": "Auto Loan"
-      },
-      {
-        "id": "personal-loan",
-        "name": "Personal Loan"
-      },
-      {
-        "id": "student-loan",
-        "name": "Student Loan"
-      },
-      {
-        "id": "other-loan",
-        "name": "Other Loan"
-      }
-    ]
+    "category": "credit"
   },
   {
     "id": "savings",

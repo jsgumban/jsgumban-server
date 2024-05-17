@@ -14,7 +14,13 @@ const schemaDefinition = accountConfigs.common.reduce((acc, field) => {
 	
 	acc[field.name] = fieldDefinition;
 	return acc;
-}, {});
+}, {
+	userId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'BillUser',
+		required: true
+	}
+});
 
 Object.keys(accountConfigs.types).forEach(type => {
 	accountConfigs.types[type].forEach(field => {

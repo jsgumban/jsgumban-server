@@ -99,25 +99,6 @@ const account = {
 				initialState: '', // Empty string or a specific date format
 			}
 		],
-		loan: [
-			{
-				name: 'loanTypeId',
-				type: 'String',
-				required: true,
-				reactType: 'select',
-				placeholder: 'Loan Type',
-				source: accountTypes.find(type => type.id === 'loan').types,
-				initialState: '',
-			},
-			{
-				name: 'totalOutstanding',
-				type: 'Number',
-				default: 0,
-				reactType: 'number',
-				placeholder: 'Total Outstanding',
-				initialState: 0, // Default number
-			},
-		],
 		savings: [
 			{
 				name: 'totalOutstanding',

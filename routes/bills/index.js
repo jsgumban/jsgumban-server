@@ -4,6 +4,7 @@ const accountConfig = require('../../config/bills/account');
 
 const accounts = require('./accounts');
 const transactions = require('./transactions');
+const users = require('./users'); // Import the users routes
 
 const Account = require("../../models/bills/AccountModel");
 const transactionsConfig = require("../../config/bills/transaction");
@@ -15,11 +16,18 @@ const transactionTypes = require('../../data/transactions/transaction-types.json
 
 const accountTypes = require('../../data/accounts/account-types.json');
 const banks = require('../../data/accounts/account-banks.json');
+const authenticate = require("../../middleware/authenticate");
 
+
+router.use('/accounts', accounts);
+router.use('/transactions', transactions);
+router.use('/users', users); // Use the users routes
+
+router.use(authenticate);
 router.get('/config', async (req, res) => {
 	try {
 		// Fetch accounts from the database
-		let accounts = await Account.find();
+		let accounts = await Account.find({userId: req.user.id});
 		accounts = accounts.map(({ type, bank, name, id }) => ({ type, bank, name, id }));
 		
 		// Update the source for transactionAccountId in the common fields
@@ -33,7 +41,7 @@ router.get('/config', async (req, res) => {
 		// Update the source for transactionAccountId in type-specific fields (if any)
 		const updatedTypeFields = Object.entries(transactionsConfig.types).reduce((acc, [type, fields]) => {
 			acc[type] = fields.map(field => {
-				if (field.name === 'transactionAccountId' || field.name === 'destinationAccountId'  || field.name === 'incomeSourceId'|| field.name === 'sourceAccountId') {
+				if (field.name === 'transactionAccountId' || field.name === 'destinationAccountId'  || field.name === 'incomeSourceId' || field.name === 'sourceAccountId') {
 					return { ...field, source: accounts };
 				}
 				return field;
@@ -61,8 +69,5 @@ router.get('/config', async (req, res) => {
 		res.status(500).json({ error: 'Internal Server Error' });
 	}
 });
-
-router.use('/accounts',  accounts);
-router.use('/transactions',  transactions);
 
 module.exports = router;

@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const Transaction = require("../../models/bills/TransactionModel");
+const authenticate = require("../../middleware/authenticate");
+const mockAuthenticate = require("../../middleware/mockAuthenticate");
+
+router.use(authenticate);
 
 router.post('/', async (req, res) => {
 	try {
-		const newAccount = await Transaction.create(req.body);
-		res.status(201).send(newAccount);
+		req.body.userId = req.user.id; // Add userId to the transaction data
+		const newTransaction = await Transaction.create(req.body);
+		res.status(201).send(newTransaction);
 	} catch (error) {
 		res.status(400).send(error);
 	}
@@ -13,59 +18,48 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
 	try {
-		const bills = await Transaction.find();
-		res.status(200).send(bills);
+		const transactions = await Transaction.find({ userId: req.user.id });
+		res.status(200).send(transactions);
 	} catch (error) {
 		res.status(500).send(error);
 	}
 });
-
 
 router.get('/:id', async (req, res) => {
 	try {
-		const account = await Transaction.findById(req.params.id);
-		if (!account) {
+		const transaction = await Transaction.findOne({ _id: req.params.id, userId: req.user.id });
+		if (!transaction) {
 			return res.status(404).send();
 		}
-		res.status(200).send(account);
+		res.status(200).send(transaction);
 	} catch (error) {
 		res.status(500).send(error);
 	}
 });
 
-
 router.patch('/:id', async (req, res) => {
 	try {
-		// Find the transaction by ID and update it with the new data
-		const transaction = await Transaction.findByIdAndUpdate(
-			req.params.id,
+		const transaction = await Transaction.findOneAndUpdate(
+			{ _id: req.params.id, userId: req.user.id },
 			req.body,
 			{ new: true, runValidators: true }
 		);
-		
-		// If no transaction is found, return a 404 response
 		if (!transaction) {
 			return res.status(404).send({ message: 'Transaction not found' });
 		}
-		
-		// Return the updated transaction
 		res.status(200).send(transaction);
 	} catch (error) {
-		// Log the error and return a 400 response with the error message
-		console.error('Error updating transaction:', error);
 		res.status(400).send({ error: 'Failed to update transaction', details: error });
 	}
 });
 
-
 router.delete('/:id', async (req, res) => {
 	try {
-		const account = await Transaction.findByIdAndDelete(req.params.id);
-		console.log('accountX: ', account);
-		if (!account) {
+		const transaction = await Transaction.findOneAndDelete({ _id: req.params.id, userId: req.user.id });
+		if (!transaction) {
 			return res.status(404).send();
 		}
-		res.status(200).send(account);
+		res.status(200).send(transaction);
 	} catch (error) {
 		res.status(500).send(error);
 	}
