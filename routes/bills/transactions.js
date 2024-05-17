@@ -36,15 +36,24 @@ router.get('/:id', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
 	try {
-		const account = await Transaction.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-		console.log('bill', account);
-		if (!account) {
-			return res.status(404).send();
+		// Find the transaction by ID and update it with the new data
+		const transaction = await Transaction.findByIdAndUpdate(
+			req.params.id,
+			req.body,
+			{ new: true, runValidators: true }
+		);
+		
+		// If no transaction is found, return a 404 response
+		if (!transaction) {
+			return res.status(404).send({ message: 'Transaction not found' });
 		}
-		res.status(200).send(account);
+		
+		// Return the updated transaction
+		res.status(200).send(transaction);
 	} catch (error) {
-		console.log('error', error);
-		res.status(400).send(error);
+		// Log the error and return a 400 response with the error message
+		console.error('Error updating transaction:', error);
+		res.status(400).send({ error: 'Failed to update transaction', details: error });
 	}
 });
 
@@ -52,6 +61,7 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
 	try {
 		const account = await Transaction.findByIdAndDelete(req.params.id);
+		console.log('accountX: ', account);
 		if (!account) {
 			return res.status(404).send();
 		}

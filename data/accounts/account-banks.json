@@ -30,5 +30,13 @@
   {
     "id": "eastwest",
     "name": "Eastwest Bank"
+  },
+  {
+    "id": "hsbc",
+    "name": "HSBC"
+  },
+  {
+    "id": "rcbc",
+    "name": "Rizal Commercial Banking Corp (RCBC)"
   }
 ]

@@ -1,5 +1,6 @@
 [
   { "id": "expense", "name": "Expense" },
+  { "id": "credit_card_expense", "name": "Credit Card Expense" },
   { "id": "income", "name": "Income" },
   { "id": "transfer", "name": "Transfer" },
   { "id": "investment", "name": "Investment" },
