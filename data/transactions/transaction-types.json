@@ -1,4 +1,9 @@
 [
+
+  { "id": "credit_card_out", "name": "Credit Card Out" },
+  { "id": "credit_card_in", "name": "Credit Card In" },
+
+
   { "id": "expense", "name": "Expense" },
   { "id": "credit_card_expense", "name": "Credit Card Expense" },
   { "id": "income", "name": "Income" },

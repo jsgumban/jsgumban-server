@@ -196,7 +196,54 @@ const transaction = {
 				initialState: false,
 				hidden: true,
 			},
-		]
+		],
+		
+		credit_card_out: [
+			{
+				name: 'relatedTransactionId',
+				type: 'String',
+				required: false,
+				initialState: '',
+				hidden: true
+			},
+			{
+				name: 'paymentDate',
+				type: 'Date',
+				required: false,
+				initialState: '',
+				hidden: true,
+			},
+			{
+				name: 'paid',
+				type: 'Boolean',
+				required: false,
+				initialState: false,
+				hidden: true,
+			},
+		],
+		credit_card_in: [
+			{
+				name: 'relatedTransactionId',
+				type: 'String',
+				required: false,
+				initialState: '',
+				hidden: true
+			},
+			{
+				name: 'paymentDate',
+				type: 'Date',
+				required: false,
+				initialState: '',
+				hidden: true,
+			},
+			{
+				name: 'paid',
+				type: 'Boolean',
+				required: false,
+				initialState: false,
+				hidden: true,
+			},
+		],
 	}
 };
 
