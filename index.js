@@ -24,11 +24,11 @@ mongoose.connect(uri)
 // });
 // const Account = mongoose.model('accounts', AccountSchema );
 //
-// // CRUD routes here
-//
-// app.listen(port, () => {
-// 	console.log(`Server running on port ${port}`);
-// });
+// CRUD routes here
+
+app.listen(port, () => {
+	console.log(`Server running on port ${port}`);
+});
 //
 // app.post('/accounts', async (req, res) => {
 // 	const newAccount = new Account(req.body);
