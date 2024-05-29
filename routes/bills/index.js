@@ -28,7 +28,11 @@ router.get('/config', async (req, res) => {
 	try {
 		// Fetch accounts from the database
 		let accounts = await Account.find({userId: req.user.id});
-		accounts = accounts.map(({ type, bank, name, id }) => ({ type, bank, name, id }));
+		accounts = accounts.map(({ type, bank, name, id, accountNumber }) => {
+			console.log('nameX: ', name);
+			name = name + " (" + accountNumber + ")";
+			return { type, bank, name, id }
+		});
 		
 		// Update the source for transactionAccountId in the common fields
 		const updatedCommonFields = transactionsConfig.common.map(field => {
