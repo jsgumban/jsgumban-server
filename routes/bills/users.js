@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const BillUser = require("../../models/bills/UserModel");
 const authenticate = require("../../middleware/authenticate");
@@ -9,7 +9,7 @@ const router = express.Router();
 // Register a new user
 router.post('/register', async (req, res) => {
 	try {
-		const hashedPassword = await bcrypt.hash(req.body.password, 10);
+		const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
 		const user = new BillUser({
 			...req.body,
 			password: hashedPassword,
@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
 		if (!user) {
 			return res.status(400).send({ message: 'Invalid username or password' });
 		}
-		const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
+		const isPasswordValid = await bcrypt.compareSync(req.body.password, user.password);
 		if (!isPasswordValid) {
 			return res.status(400).send({ message: 'Invalid username or password' });
 		}
