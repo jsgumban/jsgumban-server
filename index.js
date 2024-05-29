@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const uri = "mongodb+srv://jsgumban:kgjIWNb69vreeprO@cluster0.tw8esq3.mongodb.net/finance_app?retryWrites=true&w=majority";
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri)
 	.then(() => console.log('MongoDB Connected'))
 	.catch(err => console.log(err));
 
