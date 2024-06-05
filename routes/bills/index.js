@@ -17,6 +17,7 @@ const transactionTypes = require('../../data/transactions/transaction-types.json
 const accountTypes = require('../../data/accounts/account-types.json');
 const banks = require('../../data/accounts/account-banks.json');
 const authenticate = require("../../middleware/authenticate");
+const { getModelByType } = require("../../models/bills/AccountModel");
 
 
 router.use('/accounts', accounts);
@@ -27,7 +28,9 @@ router.use(authenticate);
 router.get('/config', async (req, res) => {
 	try {
 		// Fetch accounts from the database
-		let accounts = await Account.find({userId: req.user.id});
+		const Account = getModelByType('default'); // Assuming 'default' is the generic type for listing
+		let accounts = await Account.find({ userId: req.user.id });
+		
 		accounts = accounts.map(({ type, bank, name, id, accountNumber }) => {
 			console.log('nameX: ', name);
 			name = name + " (" + accountNumber + ")";

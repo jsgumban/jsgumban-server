@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const accountConfigs = require('../../config/bills/account');
 
-const schemaDefinition = accountConfigs.common.reduce((acc, field) => {
+if (!accountConfigs || !accountConfigs.common || !accountConfigs.types) {
+	throw new Error('Account configurations are not properly defined.');
+}
+
+const commonFields = accountConfigs.common.reduce((acc, field) => {
 	let fieldDefinition = { type: mongoose.Schema.Types[field.type] };
 	
 	if (field.required) {
@@ -22,8 +26,10 @@ const schemaDefinition = accountConfigs.common.reduce((acc, field) => {
 	}
 });
 
+// Create a schema for each account type and a default schema
+const schemaDefinitions = {};
 Object.keys(accountConfigs.types).forEach(type => {
-	accountConfigs.types[type].forEach(field => {
+	const typeFields = accountConfigs.types[type].reduce((acc, field) => {
 		let fieldDefinition = { type: mongoose.Schema.Types[field.type] };
 		
 		if (field.required) {
@@ -34,11 +40,25 @@ Object.keys(accountConfigs.types).forEach(type => {
 			fieldDefinition.default = field.default;
 		}
 		
-		schemaDefinition[field.name] = fieldDefinition;
-	});
+		acc[field.name] = fieldDefinition;
+		return acc;
+	}, { ...commonFields });
+	
+	schemaDefinitions[type] = new mongoose.Schema(typeFields);
 });
 
-const billAccountSchema = new mongoose.Schema(schemaDefinition);
-const BillAccount = mongoose.model('BillAccount', billAccountSchema);
+// Define a default schema that includes common fields
+const defaultSchema = new mongoose.Schema(commonFields);
+schemaDefinitions.default = defaultSchema;
 
-module.exports = BillAccount;
+// Function to get the appropriate schema based on typeId
+function getSchemaByType(typeId) {
+	return schemaDefinitions[typeId] || schemaDefinitions.default;
+}
+
+function getModelByType(typeId) {
+	const schema = getSchemaByType(typeId);
+	return mongoose.models.BillAccount || mongoose.model('BillAccount', schema);
+}
+
+module.exports = { getSchemaByType, getModelByType };

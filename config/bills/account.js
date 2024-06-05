@@ -11,7 +11,7 @@ const account = {
 			reactType: 'select',
 			placeholder: 'Account Type',
 			source: accountTypes,
-			initialState: '', // Assuming a default empty value to indicate no selection
+			initialState: '',
 		},
 		{
 			name: 'name',
@@ -19,7 +19,7 @@ const account = {
 			required: true,
 			reactType: 'text',
 			placeholder: 'Account Name',
-			initialState: '', // Empty string for text input
+			initialState: '',
 		},
 		{
 			name: 'bankId',
@@ -36,7 +36,7 @@ const account = {
 			required: true,
 			reactType: 'text',
 			placeholder: 'Account Number',
-			initialState: '', // Empty string for text input
+			initialState: '',
 		}
 	],
 	types: {
@@ -47,7 +47,7 @@ const account = {
 				default: 0,
 				reactType: 'number',
 				placeholder: 'Credit Limit',
-				initialState: 0, // Default number
+				initialState: 0,
 			},
 			{
 				name: 'totalOutstanding',
@@ -55,7 +55,7 @@ const account = {
 				default: 0,
 				reactType: 'number',
 				placeholder: 'Total Outstanding',
-				initialState: 0, // Default number
+				initialState: 0,
 			},
 			{
 				name: 'annualFeeGenerationDate',
@@ -63,7 +63,7 @@ const account = {
 				required: true,
 				reactType: 'date',
 				placeholder: 'Annual Fee Generation Date',
-				initialState: '', // Empty string or a specific date format
+				initialState: '',
 			},
 			{
 				name: 'annualFee',
@@ -71,7 +71,7 @@ const account = {
 				default: 0,
 				reactType: 'number',
 				placeholder: 'Annual Fee',
-				initialState: 0, // Default number
+				initialState: 0,
 			},
 			{
 				name: 'billGenerationDate',
@@ -79,7 +79,7 @@ const account = {
 				required: true,
 				reactType: 'number',
 				placeholder: 'Bill Generation Date',
-				initialState: '', // Empty string or a specific date format
+				initialState: '',
 			},
 			{
 				name: 'billRepeatOptionId',
@@ -96,7 +96,7 @@ const account = {
 				required: true,
 				reactType: 'number',
 				placeholder: 'Bill Due Date',
-				initialState: '', // Empty string or a specific date format
+				initialState: '',
 			}
 		],
 		savings: [
@@ -106,7 +106,7 @@ const account = {
 				default: 0,
 				reactType: 'number',
 				placeholder: 'Total Outstanding',
-				initialState: 0, // Default number
+				initialState: 0,
 			},
 		],
 		cash: [
@@ -116,7 +116,33 @@ const account = {
 				default: 0,
 				reactType: 'number',
 				placeholder: 'Total Outstanding',
-				initialState: 0, // Default number
+				initialState: 0,
+			},
+		],
+		loan: [
+			{
+				name: 'loanAmount',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Loan Amount',
+				initialState: 0,
+			},
+			{
+				name: 'interestRate',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Interest Rate',
+				initialState: 0,
+			},
+			{
+				name: 'loanTerm',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Loan Term (months)',
+				initialState: 0,
 			},
 		]
 	}
