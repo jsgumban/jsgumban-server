@@ -261,6 +261,67 @@ const transaction = {
 				placeholder: 'Service Fee',
 				initialState: 0,
 			},
+			{
+				name: 'totalTransactionAmount',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Total Amount',
+				initialState: 0,
+			},
+			{
+				name: 'transactionNote',
+				type: 'String',
+				placeholder: 'Notes',
+				required: false,
+				initialState: '',
+			},
+			{
+				name: 'paid',
+				type: 'Boolean',
+				required: false,
+				initialState: false,
+				hidden: true,
+			},
+			{
+				name: 'paymentDate',
+				type: 'Date',
+				required: false,
+				initialState: '',
+				hidden: true,
+			},
+			{
+				name: 'relatedTransactionId',
+				type: 'String',
+				required: false,
+				initialState: '',
+				hidden: true
+			},
+		],
+		financing_in: [
+			{
+				name: 'totalTransactionAmount',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Total Amount',
+				initialState: 0,
+			},
+			{
+				name: 'relatedTransactionId',
+				type: 'String',
+				required: false,
+				initialState: '',
+				hidden: true
+			},
+			{
+				name: 'transactionNote',
+				type: 'String',
+				placeholder: 'Notes',
+				required: false,
+				initialState: '',
+				hidden: true,
+			},
 		]
 	}
 };
