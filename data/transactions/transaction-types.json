@@ -2,6 +2,12 @@
 
   { "id": "credit_card_out", "name": "Credit Card Out" },
   { "id": "credit_card_in", "name": "Credit Card In" },
+
+  { "id": "financing_out", "name": "Financing Out" },
+  { "id": "financing_in", "name": "Financing In" },
+
+
+
   { "id": "expense", "name": "Expense" },
   { "id": "income", "name": "Income" },
   { "id": "transfer", "name": "Transfer" },

@@ -21,26 +21,26 @@ const account = {
 			placeholder: 'Account Name',
 			initialState: '',
 		},
-		{
-			name: 'bankId',
-			type: 'String',
-			required: true,
-			reactType: 'select',
-			placeholder: 'Bank',
-			source: banks,
-			initialState: '',
-		},
-		{
-			name: 'accountNumber',
-			type: 'String',
-			required: true,
-			reactType: 'text',
-			placeholder: 'Account Number',
-			initialState: '',
-		}
 	],
 	types: {
 		credit_card: [
+			{
+				name: 'bankId',
+				type: 'String',
+				required: true,
+				reactType: 'select',
+				placeholder: 'Bank',
+				source: banks,
+				initialState: '',
+			},
+			{
+				name: 'accountNumber',
+				type: 'String',
+				required: true,
+				reactType: 'text',
+				placeholder: 'Account Number',
+				initialState: '',
+			},
 			{
 				name: 'creditLimit',
 				type: 'Number',
@@ -101,6 +101,23 @@ const account = {
 		],
 		savings: [
 			{
+				name: 'bankId',
+				type: 'String',
+				required: true,
+				reactType: 'select',
+				placeholder: 'Bank',
+				source: banks,
+				initialState: '',
+			},
+			{
+				name: 'accountNumber',
+				type: 'String',
+				required: true,
+				reactType: 'text',
+				placeholder: 'Account Number',
+				initialState: '',
+			},
+			{
 				name: 'totalOutstanding',
 				type: 'Number',
 				default: 0,
@@ -111,6 +128,23 @@ const account = {
 		],
 		cash: [
 			{
+				name: 'bankId',
+				type: 'String',
+				required: true,
+				reactType: 'select',
+				placeholder: 'Bank',
+				source: banks,
+				initialState: '',
+			},
+			{
+				name: 'accountNumber',
+				type: 'String',
+				required: true,
+				reactType: 'text',
+				placeholder: 'Account Number',
+				initialState: '',
+			},
+			{
 				name: 'totalOutstanding',
 				type: 'Number',
 				default: 0,
@@ -120,6 +154,23 @@ const account = {
 			},
 		],
 		loan: [
+			{
+				name: 'bankId',
+				type: 'String',
+				required: true,
+				reactType: 'select',
+				placeholder: 'Bank',
+				source: banks,
+				initialState: '',
+			},
+			{
+				name: 'accountNumber',
+				type: 'String',
+				required: true,
+				reactType: 'text',
+				placeholder: 'Account Number',
+				initialState: '',
+			},
 			{
 				name: 'loanAmount',
 				type: 'Number',

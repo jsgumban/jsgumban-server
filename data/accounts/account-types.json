@@ -18,5 +18,10 @@
     "id": "cash",
     "name": "Cash",
     "category": "cash"
+  },
+  {
+    "id": "financing",
+    "name": "Financing",
+    "category": "credit"
   }
 ]

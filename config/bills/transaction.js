@@ -22,14 +22,6 @@ const transaction = {
 			initialState: '',
 		},
 		{
-			name: 'transactionAmount',
-			type: 'Number',
-			required: true,
-			reactType: 'number',
-			placeholder: 'Amount',
-			initialState: 0,
-		},
-		{
 			name: 'transactionAccountId',
 			type: 'String',
 			required: true,
@@ -37,6 +29,14 @@ const transaction = {
 			placeholder: 'Account',
 			source: [], // Dynamically populated based on user accounts
 			initialState: '',
+		},
+		{
+			name: 'transactionAmount',
+			type: 'Number',
+			required: true,
+			reactType: 'number',
+			placeholder: 'Amount',
+			initialState: 0,
 		},
 	],
 	types: {
@@ -244,6 +244,24 @@ const transaction = {
 				hidden: true,
 			},
 		],
+		financing_out: [
+			{
+				name: 'interestRate',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Interest Rate',
+				initialState: 0,
+			},
+			{
+				name: 'serviceFee',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Service Fee',
+				initialState: 0,
+			},
+		]
 	}
 };
 
