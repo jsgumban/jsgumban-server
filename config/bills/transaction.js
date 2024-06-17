@@ -262,6 +262,14 @@ const transaction = {
 				initialState: 0,
 			},
 			{
+				name: 'installmentMonths',
+				type: 'Number',
+				required: false,
+				reactType: 'number',
+				placeholder: 'Installment Months',
+				initialState: 0,
+			},
+			{
 				name: 'totalTransactionAmount',
 				type: 'Number',
 				required: true,
@@ -273,6 +281,13 @@ const transaction = {
 				name: 'transactionNote',
 				type: 'String',
 				placeholder: 'Notes',
+				required: false,
+				initialState: '',
+			},
+			{
+				name: 'transactionProof',
+				type: 'String',
+				placeholder: 'Proof',
 				required: false,
 				initialState: '',
 			},
@@ -297,6 +312,7 @@ const transaction = {
 				initialState: '',
 				hidden: true
 			},
+			
 		],
 		financing_in: [
 			{
@@ -309,6 +325,13 @@ const transaction = {
 			},
 			{
 				name: 'relatedTransactionId',
+				type: 'String',
+				required: false,
+				initialState: '',
+				hidden: true
+			},
+			{
+				name: 'transactionInstallmentId',
 				type: 'String',
 				required: false,
 				initialState: '',
