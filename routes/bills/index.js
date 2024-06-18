@@ -31,9 +31,17 @@ router.get('/config', async (req, res) => {
 		const Account = getModelByType('default'); // Assuming 'default' is the generic type for listing
 		let accounts = await Account.find({ userId: req.user.id });
 		
-		accounts = accounts.map(({ type, bank, name, id, accountNumber }) => {
-			console.log('nameX: ', name);
-			name = name + " (" + accountNumber + ")";
+		accounts = accounts.map((account) => {
+			const id = account.get('id');
+			const accountNumber = account.get('accountNumber');
+			const type = account.get('type');
+			const bank = account.get('bank');
+			let name = account.get('name');
+			
+			if (accountNumber) {
+				name = name + " (" + accountNumber + ")";
+			}
+			
 			return { type, bank, name, id }
 		});
 		
