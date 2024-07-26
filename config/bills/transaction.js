@@ -244,6 +244,24 @@ const transaction = {
 				hidden: true,
 			},
 		],
+		financing_partial: [
+			{
+				name: 'totalTransactionAmount',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Total Amount',
+				initialState: 0,
+				hidden: true
+			},
+			{
+				name: 'transactionNote',
+				type: 'String',
+				placeholder: 'Notes',
+				required: false,
+				initialState: '',
+			},
+		],
 		financing_out: [
 			{
 				name: 'interestRate',
@@ -345,7 +363,8 @@ const transaction = {
 				initialState: '',
 				hidden: true,
 			},
-		]
+		],
+		
 	}
 };
 

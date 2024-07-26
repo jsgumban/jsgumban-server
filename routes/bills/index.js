@@ -34,7 +34,7 @@ router.get('/config', async (req, res) => {
 		accounts = accounts.map((account) => {
 			const id = account.get('id');
 			const accountNumber = account.get('accountNumber');
-			const type = account.get('type');
+			const typeId = account.get('typeId');
 			const bank = account.get('bank');
 			let name = account.get('name');
 			
@@ -42,7 +42,7 @@ router.get('/config', async (req, res) => {
 				name = name + " (" + accountNumber + ")";
 			}
 			
-			return { type, bank, name, id }
+			return { typeId, bank, name, id }
 		});
 		
 		// Update the source for transactionAccountId in the common fields

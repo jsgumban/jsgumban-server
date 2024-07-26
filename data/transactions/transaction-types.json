@@ -5,6 +5,7 @@
 
   { "id": "financing_out", "name": "Financing Out" },
   { "id": "financing_in", "name": "Financing In" },
+  { "id": "financing_partial", "name": "Financing Partial" },
 
 
 
