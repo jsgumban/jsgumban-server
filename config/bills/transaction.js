@@ -220,6 +220,13 @@ const transaction = {
 				initialState: false,
 				hidden: true,
 			},
+			{
+				name: 'transactionNote',
+				type: 'String',
+				placeholder: 'Notes',
+				required: false,
+				initialState: '',
+			},
 		],
 		credit_card_in: [
 			{
@@ -285,6 +292,14 @@ const transaction = {
 				required: false,
 				reactType: 'number',
 				placeholder: 'Installment Months',
+				initialState: 0,
+			},
+			{
+				name: 'includePrincipalAmountInInstallment',
+				type: 'Boolean',
+				required: false,
+				reactType: 'checkbox',
+				placeholder: 'Include Principal Amount',
 				initialState: 0,
 			},
 			{
