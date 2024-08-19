@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
 
+require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5001;
 
@@ -11,7 +11,9 @@ app.use(express.json());
 
 const uri = "mongodb+srv://jsgumban:kgjIWNb69vreeprO@cluster0.tw8esq3.mongodb.net/finance_app?retryWrites=true&w=majority";
 mongoose.connect(uri)
-	.then(() => console.log('MongoDB Connected'))
+	.then(async () => {
+		console.log('MongoDB Connected')
+	})
 	.catch(err => console.log(err));
 
 

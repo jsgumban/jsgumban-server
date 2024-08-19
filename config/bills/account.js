@@ -74,14 +74,6 @@ const account = {
 				initialState: 0,
 			},
 			{
-				name: 'billGenerationDate',
-				type: 'String',
-				required: true,
-				reactType: 'number',
-				placeholder: 'Bill Generation Date',
-				initialState: '',
-			},
-			{
 				name: 'billRepeatOptionId',
 				type: 'String',
 				required: true,
@@ -92,108 +84,62 @@ const account = {
 			},
 			{
 				name: 'billDueDate',
-				type: 'String',
+				type: 'Number',  // Ensure billDueDate is now a number
 				required: true,
-				reactType: 'number',
+				reactType: 'number',  // Ensure the input field is number-based
 				placeholder: 'Bill Due Date',
-				initialState: '',
+				initialState: 1,  // Initial state as 1 or whatever fits
 			}
-		],
-		savings: [
-			{
-				name: 'bankId',
-				type: 'String',
-				required: true,
-				reactType: 'select',
-				placeholder: 'Bank',
-				source: banks,
-				initialState: '',
-			},
-			{
-				name: 'accountNumber',
-				type: 'String',
-				required: true,
-				reactType: 'text',
-				placeholder: 'Account Number',
-				initialState: '',
-			},
-			{
-				name: 'totalOutstanding',
-				type: 'Number',
-				default: 0,
-				reactType: 'number',
-				placeholder: 'Total Outstanding',
-				initialState: 0,
-			},
-		],
-		cash: [
-			{
-				name: 'bankId',
-				type: 'String',
-				required: true,
-				reactType: 'select',
-				placeholder: 'Bank',
-				source: banks,
-				initialState: '',
-			},
-			{
-				name: 'accountNumber',
-				type: 'String',
-				required: true,
-				reactType: 'text',
-				placeholder: 'Account Number',
-				initialState: '',
-			},
-			{
-				name: 'totalOutstanding',
-				type: 'Number',
-				default: 0,
-				reactType: 'number',
-				placeholder: 'Total Outstanding',
-				initialState: 0,
-			},
 		],
 		loan: [
 			{
-				name: 'bankId',
+				name: 'transactionStartDate',
+				type: 'Date',
+				required: true,
+				reactType: 'date',
+				placeholder: 'Transaction Start Date',
+				initialState: '',
+			},
+			{
+				name: 'billRepeatOptionId',
 				type: 'String',
 				required: true,
 				reactType: 'select',
-				placeholder: 'Bank',
-				source: banks,
-				initialState: '',
+				placeholder: 'Bill Repeat Option',
+				source: repeatOptions,
+				initialState: 'monthly'
 			},
 			{
-				name: 'accountNumber',
+				name: 'installmentMonths',
+				type: 'Number',
+				required: false,
+				reactType: 'number',
+				placeholder: 'Installment Months',
+				initialState: 0,
+			},
+			{
+				name: 'billDueDate',
+				type: 'Number',  // Ensure billDueDate is now a number
+				required: true,
+				reactType: 'number',  // Ensure the input field is number-based
+				placeholder: 'Bill Due Date',
+				initialState: 1,  // Initial state as 1 or whatever fits
+			},
+			{
+				name: 'amortization',
+				type: 'Number',
+				required: true,
+				reactType: 'number',
+				placeholder: 'Amortization',
+				initialState: 0,
+			},
+			{
+				name: 'transactionNote',
 				type: 'String',
-				required: true,
-				reactType: 'text',
-				placeholder: 'Account Number',
+				placeholder: 'Notes',
+				required: false,
 				initialState: '',
-			},
-			{
-				name: 'loanAmount',
-				type: 'Number',
-				required: true,
-				reactType: 'number',
-				placeholder: 'Loan Amount',
-				initialState: 0,
-			},
-			{
-				name: 'interestRate',
-				type: 'Number',
-				required: true,
-				reactType: 'number',
-				placeholder: 'Interest Rate',
-				initialState: 0,
-			},
-			{
-				name: 'loanTerm',
-				type: 'Number',
-				required: true,
-				reactType: 'number',
-				placeholder: 'Loan Term (months)',
-				initialState: 0,
+				reactType: 'textarea'
 			},
 		]
 	}

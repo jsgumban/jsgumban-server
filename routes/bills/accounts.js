@@ -41,17 +41,35 @@ router.get('/:id', async (req, res) => {
 		res.status(500).send(error);
 	}
 });
+
 router.patch('/:id', async (req, res) => {
 	try {
-		const Account = getModelByType(req.body.typeId); // Ensure we use the correct model based on typeId
+		console.log('req.bodyX: ', req.body);
+		const { _id, userId, billDueDate, ...updateData } = req.body;
+		
+		console.log('Incoming billDueDate:', billDueDate);  // Log incoming billDueDate
+		
+		// Ensure billDueDate is treated as a number
+		if (billDueDate !== undefined) {
+			updateData.billDueDate = parseInt(billDueDate, 10);
+			console.log('Parsed billDueDate:', updateData.billDueDate);  // Log the parsed number
+		}
+		
+		
+		console.log('updateDataX: ', updateData);
+		const Account = getModelByType(req.body.typeId || 'default');
 		const account = await Account.findOneAndUpdate(
 			{ _id: req.params.id, userId: req.user.id },
-			req.body,
+			updateData,
 			{ new: true, runValidators: true }
 		);
+		
 		if (!account) {
 			return res.status(404).send();
 		}
+		
+		console.log('Updated billDueDate in response:', account.billDueDate);  // Log the response billDueDate
+		
 		res.status(200).send(account);
 	} catch (error) {
 		console.error('Error updating account:', error);
