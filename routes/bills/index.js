@@ -5,10 +5,12 @@ const accountConfig = require('../../config/bills/account');
 const accounts = require('./accounts');
 const transactions = require('./transactions');
 const users = require('./users'); // Import the users routes
+const gambling = require('./gambling'); // Import the gambling routes
 
 const Account = require("../../models/bills/AccountModel");
 const transactionsConfig = require("../../config/bills/transaction");
 const accountConfigs = require('../../config/bills/account');
+const gamblingConfig = require('../../config/bills/gambling'); // Import gambling transaction config
 
 const categories = require('../../data/transactions/transaction-categories.json');
 const repeatOptions = require('../../data/transactions/transaction-repeat-options.json');
@@ -23,6 +25,7 @@ const { getModelByType } = require("../../models/bills/AccountModel");
 router.use('/accounts', accounts);
 router.use('/transactions', transactions);
 router.use('/users', users); // Use the users routes
+router.use('/gambling', gambling);
 
 router.use(authenticate);
 router.get('/config', async (req, res) => {
@@ -63,6 +66,17 @@ router.get('/config', async (req, res) => {
 			});
 			return acc;
 		}, {});
+		
+		// Add gambling transaction fields to the updated configuration
+		const gamblingFields = gamblingConfig.common.map(field => {
+			if (field.name === 'transactionAccountId') {
+				return { ...field, source: accounts };
+			}
+			return field;
+		});
+		
+		// Add gambling transactions to the types
+		updatedTypeFields.gambling = gamblingFields;
 		
 		// Create the updated configuration
 		const updatedConfig = {
