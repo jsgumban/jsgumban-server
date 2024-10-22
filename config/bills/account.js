@@ -60,7 +60,7 @@ const account = {
 			{
 				name: 'annualFeeGenerationDate',
 				type: 'Date',
-				required: true,
+				required: false,
 				reactType: 'date',
 				placeholder: 'Annual Fee Generation Date',
 				initialState: '',
@@ -76,7 +76,7 @@ const account = {
 			{
 				name: 'billRepeatOptionId',
 				type: 'String',
-				required: true,
+				required: false,
 				reactType: 'select',
 				placeholder: 'Bill Repeat Option',
 				source: repeatOptions,
@@ -85,11 +85,19 @@ const account = {
 			{
 				name: 'billDueDate',
 				type: 'Number',  // Ensure billDueDate is now a number
-				required: true,
+				required: false,
 				reactType: 'number',  // Ensure the input field is number-based
 				placeholder: 'Bill Due Date',
 				initialState: 1,  // Initial state as 1 or whatever fits
-			}
+			},
+			{
+				name: 'billGenerationDate',
+				type: 'String',
+				required: false,
+				reactType: 'number',
+				placeholder: 'Bill Generation Date',
+				initialState: '',
+			},
 		],
 		loan: [
 			{
