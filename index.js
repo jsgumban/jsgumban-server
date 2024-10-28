@@ -28,7 +28,8 @@ const io = socketIo(server, {
 		origin: ['http://localhost:3000', 'http://192.168.0.44:3000', 'https://www.jsgumban.com'],
 		methods: ['GET', 'POST'],
 		credentials: true
-	}
+	},
+	transports: ['websocket'], // Force WebSocket only
 });
 
 // Socket.IO connection handler
