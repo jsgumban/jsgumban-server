@@ -10,11 +10,7 @@ const app = express();
 const port = process.env.PORT || 5001;
 
 // Enable CORS for specific origins
-app.use(cors({
-	origin: ['http://localhost:3000', 'http://192.168.0.44:3000', 'https://www.jsgumban.com'],
-	methods: ['GET', 'POST'],
-	credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
