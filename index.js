@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
-const socketIo = require('socket.io');
+// const socketIo = require('socket.io'); // Commented out for now
 const cors = require('cors');
 
 require('dotenv').config();
@@ -21,34 +21,36 @@ mongoose.connect(uri)
 	})
 	.catch(err => console.log(err));
 
-// HTTP server and Socket.IO setup
+// HTTP server setup
 const server = http.createServer(app);
-const io = socketIo(server, {
-	cors: {
-		origin: ['http://localhost:3000', 'http://192.168.0.44:3000', 'https://www.jsgumban.com'],
-		methods: ['GET', 'POST'],
-		credentials: true
-	},
-	transports: ['websocket'], // Force WebSocket only
-});
 
-// Socket.IO connection handler
-io.on('connection', (socket) => {
-	console.log('A user connected');
-	
-	// Handle moveCard events from clients
-	socket.on('moveCard', (data) => {
-		const { fromListId, toListId, cardId } = data;
-		console.log(`Card ${cardId} moved from List ${fromListId} to List ${toListId}`);
-		
-		// Broadcast the moveCard event to other clients
-		socket.broadcast.emit('cardMoved', data);
-	});
-	
-	socket.on('disconnect', () => {
-		console.log('A user disconnected');
-	});
-});
+// Socket.IO setup (currently disabled)
+// const io = socketIo(server, {
+//     cors: {
+//         origin: ['http://localhost:3000', 'http://192.168.0.44:3000', 'https://www.jsgumban.com'],
+//         methods: ['GET', 'POST'],
+//         credentials: true
+//     },
+//     transports: ['websocket'], // Force WebSocket only
+// });
+
+// Socket.IO connection handler (currently disabled)
+// io.on('connection', (socket) => {
+//     console.log('A user connected');
+
+//     // Handle moveCard events from clients
+//     socket.on('moveCard', (data) => {
+//         const { fromListId, toListId, cardId } = data;
+//         console.log(`Card ${cardId} moved from List ${fromListId} to List ${toListId}`);
+
+//         // Broadcast the moveCard event to other clients
+//         socket.broadcast.emit('cardMoved', data);
+//     });
+
+//     socket.on('disconnect', () => {
+//         console.log('A user disconnected');
+//     });
+// });
 
 // Basic API endpoint
 app.get('/', (req, res) => {
