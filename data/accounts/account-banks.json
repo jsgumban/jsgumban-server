@@ -42,5 +42,9 @@
   {
     "id": "rbank",
     "name": "Robinsons Banks"
+  },
+  {
+    "id": "boc",
+    "name": "Bank of Commerce"
   }
 ]

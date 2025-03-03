@@ -10,6 +10,10 @@ const TaskSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	details: {
+		type: String, // New field for additional details
+		default: ''
+	},
 	checked: {
 		type: Boolean,
 		default: false
@@ -20,13 +24,17 @@ const TaskSchema = new mongoose.Schema({
 	},
 	taskType: {
 		type: String,
-		enum: ['financing', 'payable'],
+		enum: ['financing', 'payable', 'payable-due-1', 'payable-due-2', 'payable-due-3', 'payable-due-4'],
 		required: true
 	},
 	parentId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Task',
-		default: null // NULL for top-level tasks
+		default: null
+	},
+	position: {
+		type: Number,
+		required: true
 	},
 	timestamp: {
 		type: Date,
@@ -35,5 +43,4 @@ const TaskSchema = new mongoose.Schema({
 });
 
 const Task = mongoose.model('Task', TaskSchema);
-
 module.exports = { Task };

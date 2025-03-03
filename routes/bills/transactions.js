@@ -42,8 +42,10 @@ router.patch('/:id', async (req, res) => {
 		const transaction = await Transaction.findOneAndUpdate(
 			{ _id: req.params.id, userId: req.user.id },
 			req.body,
-			{ new: true, runValidators: true }
+			// { new: true, runValidators: true }
 		);
+		
+		console.log('transactionX: ', transaction);
 		if (!transaction) {
 			return res.status(404).send({ message: 'Transaction not found' });
 		}

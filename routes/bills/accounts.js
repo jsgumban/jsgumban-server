@@ -10,7 +10,12 @@ router.post('/', async (req, res) => {
 	try {
 		req.body.userId = req.user.id; // Add userId to the account data
 		const Account = getModelByType(req.body.typeId); // Get the model based on the typeId
+		console.log('AccountX: ', Account);
+		console.log('req.bodyX: ', req.body);
+		
 		const newAccount = await Account.create(req.body);
+		
+		console.log('newAccountX: ', newAccount);
 		res.status(201).send(newAccount);
 	} catch (error) {
 		console.error('Error creating account:', error);
@@ -57,12 +62,18 @@ router.patch('/:id', async (req, res) => {
 		
 		
 		console.log('updateDataX: ', updateData);
+		
+		
+		
+		
 		const Account = getModelByType(req.body.typeId || 'default');
 		const account = await Account.findOneAndUpdate(
-			{ _id: req.params.id, userId: req.user.id },
+			{ _id: req.params.id || req.params._id, userId: req.user.id },
 			updateData,
-			{ new: true, runValidators: true }
+			// { new: true, runValidators: true }
 		);
+		
+		console.log('AccountX: ', Account);
 		
 		if (!account) {
 			return res.status(404).send();

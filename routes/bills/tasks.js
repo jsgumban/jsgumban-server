@@ -7,32 +7,16 @@ router.use(authenticate);
 
 /**
  * @route   GET /bills/tasks
- * @desc    Get all tasks, including subtasks, sorted by parent-child relationship
+ * @desc    Get tasks, ordered by position
  * @access  Private
  */
 router.get('/', async (req, res) => {
 	try {
-		// Fetch tasks for the user, sorted by parentId & timestamp
 		const { taskType } = req.query;
-		const tasks = await Task.find({ userId: req.user.id, taskType: taskType }).sort({ parentId: 1, timestamp: -1 });
+		const tasks = await Task.find({ userId: req.user.id, taskType })
+			.sort({ position: 1 });
 		
-		// Organize tasks with subtasks
-		const taskMap = {};
-		tasks.forEach(task => (taskMap[task._id] = { ...task._doc, subtasks: [] }));
-		
-		// Assign subtasks to their parents
-		const rootTasks = [];
-		tasks.forEach(task => {
-			if (task.parentId) {
-				if (taskMap[task.parentId]) {
-					taskMap[task.parentId].subtasks.push(taskMap[task._id]);
-				}
-			} else {
-				rootTasks.push(taskMap[task._id]);
-			}
-		});
-		
-		res.status(200).send(rootTasks);
+		res.status(200).send(tasks);
 	} catch (error) {
 		console.error('Error fetching tasks:', error);
 		res.status(500).send(error);
@@ -41,21 +25,28 @@ router.get('/', async (req, res) => {
 
 /**
  * @route   POST /bills/tasks
- * @desc    Create a new task (or subtask if parentId is provided)
+ * @desc    Create a new task
  * @access  Private
  */
 router.post('/', async (req, res) => {
 	try {
-		const { text, taskType, parentId } = req.body;
+		const { text, details, taskType, parentId } = req.body;
 		if (!text || !taskType) return res.status(400).send({ error: 'Task text and type are required' });
+		
+		const lastTask = await Task.findOne({ userId: req.user.id, taskType })
+			.sort({ position: -1 });
+		
+		const newPosition = lastTask ? lastTask.position + 1 : 1;
 		
 		const newTask = await Task.create({
 			userId: req.user.id,
 			text,
+			details: details || '',
 			checked: false,
 			important: false,
 			taskType,
-			parentId: parentId || null // NULL for main tasks
+			parentId: parentId || null,
+			position: newPosition
 		});
 		
 		res.status(201).send(newTask);
@@ -66,8 +57,8 @@ router.post('/', async (req, res) => {
 });
 
 /**
- * @route   PATCH /bills/tasks/:id
- * @desc    Update a task (text, status, importance, or parent)
+ * @route   PATCH /bills/tasks/reorder
+ * @desc    Reorder tasks
  * @access  Private
  */
 router.patch('/:id', async (req, res) => {
@@ -76,9 +67,9 @@ router.patch('/:id', async (req, res) => {
 			{ _id: req.params.id, userId: req.user.id },
 			{
 				text: req.body.text,
+				details: req.body.details || '', // Allow details update
 				checked: req.body.checked,
-				important: req.body.important,
-				parentId: req.body.parentId || null // Allows re-parenting
+				important: req.body.important
 			},
 			{ new: true, runValidators: true }
 		);
@@ -99,13 +90,7 @@ router.patch('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
 	try {
-		// Find task
-		const task = await Task.findOne({ _id: req.params.id, userId: req.user.id });
-		if (!task) return res.status(404).send({ error: 'Task not found' });
-		
-		// Delete task and its subtasks
 		await Task.deleteMany({ $or: [{ _id: req.params.id }, { parentId: req.params.id }] });
-		
 		res.status(200).send({ message: 'Task and subtasks deleted successfully' });
 	} catch (error) {
 		console.error('Error deleting task:', error);
