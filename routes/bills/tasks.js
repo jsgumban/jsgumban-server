@@ -58,6 +58,39 @@ router.post('/', async (req, res) => {
 
 /**
  * @route   PATCH /bills/tasks/reorder
+ * @desc    Reorder tasks and update their positions in bulk
+ * @access  Private
+ */
+router.patch('/reorder', async (req, res) => { // ✅ Ensure this route comes **before** `/:id`
+	try {
+		const { reorderedTasks } = req.body; // Array of { _id, position }
+		
+		// Validate input
+		if (!Array.isArray(reorderedTasks) || reorderedTasks.length === 0) {
+			return res.status(400).send({ error: 'Invalid task order data' });
+		}
+		
+		// Bulk update task positions
+		const bulkOps = reorderedTasks.map(task => ({
+			updateOne: {
+				filter: { _id: task._id, userId: req.user.id },
+				update: { position: task.position }
+			}
+		}));
+		
+		await Task.bulkWrite(bulkOps);
+		
+		res.status(200).send({ message: 'Tasks reordered successfully' });
+	} catch (error) {
+		console.error('Error reordering tasks:', error);
+		res.status(500).send(error);
+	}
+});
+
+
+
+/**
+ * @route   PATCH /bills/tasks/reorder
  * @desc    Reorder tasks
  * @access  Private
  */
@@ -82,6 +115,8 @@ router.patch('/:id', async (req, res) => {
 		res.status(400).send(error);
 	}
 });
+
+
 
 /**
  * @route   DELETE /bills/tasks/:id

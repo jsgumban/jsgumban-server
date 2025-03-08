@@ -24,7 +24,7 @@ const TaskSchema = new mongoose.Schema({
 	},
 	taskType: {
 		type: String,
-		enum: ['financing', 'payable', 'payable-due-1', 'payable-due-2', 'payable-due-3', 'payable-due-4'],
+		enum: ['personal', 'financing', 'payable', 'payable-due-1', 'payable-due-2', 'payable-due-3', 'payable-due-4'],
 		required: true
 	},
 	parentId: {

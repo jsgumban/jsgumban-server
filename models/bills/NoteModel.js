@@ -12,7 +12,7 @@ const NoteSchema = new mongoose.Schema({
 	},
 	noteType: {
 		type: String,
-		enum: ['financing', 'payable'], // Define possible types
+		enum: ['personal', 'financing', 'payable', 'payable-due-1', 'payable-due-2', 'payable-due-3', 'payable-due-4'],
 		default: 'payable'
 	},
 	timestamp: {

@@ -28,37 +28,57 @@ router.post('/', async (req, res) => {
 	}
 });
 
-/**
- * @route   GET /bills/notes
- * @desc    Get all notes for the logged-in user
- * @access  Private
- */
-router.get('/', async (req, res) => {
-	try {
-		const notes = await Note.find({ userId: req.user.id }).sort({ timestamp: -1 });
-		res.status(200).send(notes);
-	} catch (error) {
-		console.error('Error fetching notes:', error);
-		res.status(500).send(error);
-	}
-});
+// /**
+//  * @route   GET /bills/notes
+//  * @desc    Get all notes for the logged-in user
+//  * @access  Private
+//  */
+// router.get('/', async (req, res) => {
+// 	try {
+// 		const notes = await Note.find({ userId: req.user.id }).sort({ timestamp: -1 });
+// 		res.status(200).send(notes);
+// 	} catch (error) {
+// 		console.error('Error fetching notes:', error);
+// 		res.status(500).send(error);
+// 	}
+// });
 
 /**
  * @route   GET /bills/notes/:id
  * @desc    Get a single note by ID
  * @access  Private
  */
-router.get('/:id', async (req, res) => {
+router.get('/:id?', async (req, res) => {
 	try {
-		const note = await Note.findOne({ _id: req.params.id, userId: req.user.id });
-		if (!note) {
-			return res.status(404).send();
+		const { id } = req.params;
+		const { noteType } = req.query; // Allow filtering by noteType
+		
+		// If an ID is provided, fetch a single note
+		if (id) {
+			const note = await Note.findOne({ _id: id, userId: req.user.id });
+			
+			if (!note) {
+				return res.status(404).send({ error: 'Note not found' });
+			}
+			
+			return res.status(200).send(note);
 		}
-		res.status(200).send(note);
+		
+		// If no ID, fetch all notes (optionally filtered by noteType)
+		const filter = { userId: req.user.id };
+		if (noteType) filter.noteType = noteType;
+		
+		console.log('filterX: ', filter);
+		
+		const notes = await Note.find(filter).sort({ timestamp: -1 });
+		
+		res.status(200).send(notes);
 	} catch (error) {
-		res.status(500).send(error);
+		console.error('Error fetching notes:', error);
+		res.status(500).send({ error: 'Internal server error' });
 	}
 });
+
 
 /**
  * @route   PATCH /bills/notes/:id
