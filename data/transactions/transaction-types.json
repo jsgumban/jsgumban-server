@@ -2,6 +2,7 @@
 
   { "id": "credit_card_out", "name": "Credit Card Out" },
   { "id": "credit_card_in", "name": "Credit Card In" },
+  { "id": "credit_card_partial", "name": "Credit Card Partial" },
 
   { "id": "financing_out", "name": "Financing Out" },
   { "id": "financing_in", "name": "Financing In" },

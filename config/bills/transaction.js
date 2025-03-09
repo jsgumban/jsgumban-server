@@ -198,6 +198,30 @@ const transaction = {
 			},
 		],
 		
+		credit_card_partial: [
+			{
+				name: 'altDueDate',
+				type: 'Date',
+				required: true,
+				reactType: 'date',
+				placeholder: 'Alternative Due Date',
+				initialState: '',
+			},
+			{
+				name: 'paymentDate',
+				type: 'Date',
+				required: false,
+				initialState: '',
+				hidden: true,
+			},
+			{
+				name: 'transactionNote',
+				type: 'String',
+				placeholder: 'Notes',
+				required: false,
+				initialState: '',
+			},
+		],
 		credit_card_out: [
 			{
 				name: 'relatedTransactionId',
@@ -205,6 +229,14 @@ const transaction = {
 				required: false,
 				initialState: '',
 				hidden: true
+			},
+			{
+				name: 'altDueDate',
+				type: 'Date',
+				required: true,
+				reactType: 'date',
+				placeholder: 'Alternative Due Date',
+				initialState: '',
 			},
 			{
 				name: 'paymentDate',
@@ -226,6 +258,14 @@ const transaction = {
 				placeholder: 'Notes',
 				required: false,
 				initialState: '',
+			},
+			{
+				name: 'rollable',
+				type: 'Boolean',
+				required: false,
+				reactType: 'checkbox',
+				placeholder: 'Rollable',
+				initialState: 0,
 			},
 		],
 		credit_card_in: [

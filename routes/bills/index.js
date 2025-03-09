@@ -8,6 +8,7 @@ const users = require('./users'); // Import the users routes
 const gambling = require('./gambling'); // Import the gambling routes
 const notes = require('./notes'); // Import the gambling routes
 const tasks = require('./tasks'); // Import the gambling routes
+const payableTasks = require('./payable-tasks'); // Import the gambling routes
 
 const Account = require("../../models/bills/AccountModel");
 const transactionsConfig = require("../../config/bills/transaction");
@@ -30,6 +31,7 @@ router.use('/users', users); // Use the users routes
 router.use('/gambling', gambling);
 router.use('/notes', notes);
 router.use('/tasks', tasks);
+router.use('/payable-tasks', payableTasks);
 
 
 
