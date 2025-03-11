@@ -202,7 +202,7 @@ const transaction = {
 			{
 				name: 'altDueDate',
 				type: 'Date',
-				required: true,
+				required: false,
 				reactType: 'date',
 				placeholder: 'Alternative Due Date',
 				initialState: '',
